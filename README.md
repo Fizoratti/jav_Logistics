@@ -43,7 +43,7 @@ $ git clone https://github.com/Fizoratti/jav_Logistics/
 $ cd jav_Logistics
 
 # Execute a aplicação
-$ gradle run
+$ gradle -q --console plain run
 ```
 ###### Para executar em ambiente Windows use o comando ```gradlew run```.
 
