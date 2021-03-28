@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import logistics.userinterface.console.Console;
 
 public class City {
-    public int node;
     public String name;
+    public int node;
 
-    public City(String _name){
+    public City(String _name, int _node){
         this.name = _name;
+        this.node = _node;
     }
 
     /**

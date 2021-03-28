@@ -70,15 +70,43 @@ public class Database {
             // A variável recebe o primeiro valor da linha
             String name = readFile.next();
 
+            // Identificador
+            int node = 1;
+
             // Enquanto houver valores na linha, adiciona este valor na lista de cidades
             do {
                 // Cria uma instancia de cidade e adiciona na lista
-                cities.add(new City(name));                             Console.log(" > cities.add("+name+")");
+                cities.add(new City(name, node));                             Console.log(" > cities.add("+name+") ("+node+")");
+
+                node++;
 
                 // A variável recebe o próximo valor da linha
                 name = readFile.next();
 
             } while (readFile.hasNext());
+
+            // Adiciona a última cidade
+            cities.add(new City(name, node));                                 Console.log(" > cities.add("+name+") ("+node+")");
+
+
+
+
+            // while ((line = br.readLine()) != null) {
+
+            //     // Atributos do Livro
+            //     int codigo = Integer.parseInt(sc.next());
+            //     String titulo = sc.next();
+            //     int ano = Integer.parseInt(sc.next());
+
+            //     // Cria uma instancia do Livro e adiciona na lista
+            //     livros.add(new Livro(codigo, titulo, ano));
+            // }
+
+
+
+
+
+
 
             readFile.close();                                            Console.debug("Terminou de carregar as cidades.");
         } 
