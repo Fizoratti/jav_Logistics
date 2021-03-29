@@ -47,6 +47,14 @@ public class Database {
      */
     public ArrayList<City> getCities() {
         return this.cities;
+
+    }
+
+    /**
+     * @return Lista contendo todas as rotas.
+     */
+    public ArrayList<City> getRoutes() {
+        return this.cities;
     }
 
     /**
@@ -58,14 +66,18 @@ public class Database {
 
         Path path = Paths.get("src", "main", "resources", _filename);   Console.debug(" > Loading "+_filename+" in "+path.toAbsolutePath());
 
+
+        /**
+         * Este trecho de código vai criar 24 cidades.
+         */
         try {
             BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset());
 
             // A variável recebe toda a primeira linha do arquivo
-            String line = br.readLine();                                Console.log(line);
+            String line = br.readLine();                                Console.debug(line);
             
             // O separador dos valores no arquivo utilizado é ";"
-            final Scanner readFile = new Scanner(line).useDelimiter(";");
+            Scanner readFile = new Scanner(line).useDelimiter(";");
             
             // A variável recebe o primeiro valor da linha
             String name = readFile.next();
@@ -76,7 +88,7 @@ public class Database {
             // Enquanto houver valores na linha, adiciona este valor na lista de cidades
             do {
                 // Cria uma instancia de cidade e adiciona na lista
-                cities.add(new City(name, node));                             Console.log(" > cities.add("+name+") ("+node+")");
+                cities.add(new City(name, node));                       Console.debug(" > cities.add("+name+") ("+node+")");
 
                 node++;
 
@@ -86,29 +98,35 @@ public class Database {
             } while (readFile.hasNext());
 
             // Adiciona a última cidade
-            cities.add(new City(name, node));                                 Console.log(" > cities.add("+name+") ("+node+")");
+            cities.add(new City(name, node));                           Console.debug(" > cities.add("+name+") ("+node+")");
 
 
 
+            /**
+             * Este trecho de código vai criar 576 rotas. Uma para cada trajeto CidadeA->CidadeB.
+             * A partir de agora serão lidas as próximas 24 linhas do arquivo
+             */
+            while ((line = br.readLine()) != null) {
+                // Percorrendo cidade origem [LINHA]
 
-            // while ((line = br.readLine()) != null) {
+                // Segmenta a linha em varias partes cada vez que lê um sinal ";"
+                readFile = new Scanner(line).useDelimiter(";");
 
-            //     // Atributos do Livro
-            //     int codigo = Integer.parseInt(sc.next());
-            //     String titulo = sc.next();
-            //     int ano = Integer.parseInt(sc.next());
+                for(City origin: cities) {
+                    for(City destination: cities) {
+                        // Percorrendo a cidade destino [COLUNA]
+                        int distance = Integer.parseInt(readFile.next());
+    
+                        // Cria uma nova rota
+                        Route route = new Route(origin, destination, distance);     Console.debug(route);
 
-            //     // Cria uma instancia do Livro e adiciona na lista
-            //     livros.add(new Livro(codigo, titulo, ano));
-            // }
+                        // Adiciona essa rota na lista de rotas
+                        routes.add(route);
+                    }
+                }
+            }
 
-
-
-
-
-
-
-            readFile.close();                                            Console.debug("Terminou de carregar as cidades.");
+            readFile.close();                                           Console.debug("Terminou de carregar as cidades.");
         } 
         catch (Exception exception) {
             System.err.format(

@@ -5,5 +5,5 @@ public class Gas {
     /**
      * Preço em reais (R$) por um litro de gasolina.
      */
-    public static double price;
+    public static double price = 1;
 }

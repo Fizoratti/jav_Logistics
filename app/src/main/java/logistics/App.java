@@ -7,16 +7,16 @@ import logistics.database.Database;
 import logistics.domain.City;
 
 public class App {
-    public static boolean production = false;
+    public static boolean production = true;
     public static void main(String[] args) {
-        Console.log("Bem-vindos ao Logistics! "+ Emoji.DELIVERY_TRUCK);
+        Console.info("Bem-vindos ao Logistics! "+ Emoji.DELIVERY_TRUCK);
         
         Database.init();
-        Database.get().loadFile("Distancias.csv");
+        // Database.get().loadFile("Distancias.csv");
         
         Menu.get().showMenu();
         
-        Console.log("Fim do programa.");
+        Console.info("Fim do programa.");
     }
     
 }

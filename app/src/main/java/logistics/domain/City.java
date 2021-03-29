@@ -23,4 +23,12 @@ public class City {
             Console.log(city.name);
         }
     }
+
+    public static City getCity(ArrayList<City> _cities, int _node) {
+        City res = new City("",0);
+        for(City city: _cities) {
+            if (city.node == _node) res = city;
+        }
+        return res;
+    }
 }

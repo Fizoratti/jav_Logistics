@@ -38,6 +38,20 @@ public class Console {
 
 
     /**
+     * Inclui um emoji ℹ️  e registra no terminal com texto azul o valor 
+     * {@code toString()} de um objeto. No final, adiciona uma nova linha. 
+     * 
+     * @param _object preferencialmente um objeto do tipo {@code String}.
+     */
+    public static void info(Object _object) {
+        System.out.println("\n" +
+            Emoji.INFORMATION + " " +
+            Dye.cyan(_object.toString()) + "\n"
+        );
+    }
+
+
+    /**
      * Inclui um emoji 🏗️  e registra no terminal com texto amarelo o valor 
      * {@code toString()} de um objeto. No final, adiciona uma nova linha. 
      * 

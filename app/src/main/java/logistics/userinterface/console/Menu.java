@@ -2,6 +2,9 @@ package logistics.userinterface.console;
 
 import logistics.database.Database;
 import logistics.domain.City;
+import logistics.domain.Truck;
+import logistics.domain.Gas;
+import logistics.domain.Route;
 
 /**
  * A classe {@code Menu} é uma das opções possíveis para interagir
@@ -22,7 +25,7 @@ public class Menu {
     }
 
     public void showOptions() {                                     Console.debug(" > showOptions()");
-        Console.log("=== MENU ===");
+        Console.log("=========== MENU ===========");
         Console.log("1. Configurar custo por KM");
         Console.log("2. Consultar trecho");
         Console.log("3. Consultar rota");
@@ -33,7 +36,7 @@ public class Menu {
         showOptions();
 
         // Variável input recebe o valor inserido pelo terminal
-        Console.print(" > Digite a opção: ");
+        Console.print("\n > Digite a opção: ");
         String input = Console.read();
 
         // Converte o input para um valor inteiro
@@ -41,7 +44,7 @@ public class Menu {
 
         switch(option) {
             case 1:
-                // configurarCustoPorKm()
+                setGasolinePrice();
                 break;
 
             case 2:
@@ -60,27 +63,63 @@ public class Menu {
                 showMenu();
                 break;
                 
-            // Public secrets...
             case 5:
                 showCities();
+                break;
+            
+            case 6:
+                showRoutes();
                 break;
 
         }
     }
 
 
-
-    public void showCities() {                                      Console.debug(" > showCities()");
-        System.out.println("--------------------------");
-        System.out.println("LISTA DE CIDADES");
-
-        City.listAll(Database.get().cities);
-
-        System.out.println("\nFim do listar cidades!");
-
+    
+    public void setGasolinePrice() {
+        // Variável input recebe o valor inserido pelo terminal
+        Console.print("\n > Informe o custo por KM: ");
+        String input = Console.read();
+        
+        // Converte o input para um valor inteiro
+        double cost = Double.parseDouble(input);
+        
+        // O custo/km é o preço de 1L de gasolina * numero de litros para o veículo percorrer 1km 
+        Gas.price = cost / Truck.fuelConsumptionRatio;
+        
+        Console.info("1 litro de gasolina custa R$" + String.format("%.2f", Gas.price));
+        
         // Pausa de 2 segundos;
         Console.wait(2000);
+        
+        showMenu();
+    }
+    
+    public void showCities() {                                      Console.debug(" > showCities()");
+        Console.log("--------------------------");
+        Console.log("LISTA DE CIDADES");
+        
+        City.listAll(Database.get().cities);
+        
+        Console.log("\nFim do listar cidades!");
+        
+        // Pausa de 2 segundos;
+        Console.wait(2000);
+        
+        showMenu();
+    }
 
+    public void showRoutes() {
+        Console.log("--------------------------");
+        Console.log("LISTA DE ROTAS");
+        
+        Route.listAll(Database.get().routes);
+        
+        Console.log("\nFim do listar rotas!");
+        
+        // Pausa de 2 segundos;
+        Console.wait(2000);
+        
         showMenu();
     }
 
