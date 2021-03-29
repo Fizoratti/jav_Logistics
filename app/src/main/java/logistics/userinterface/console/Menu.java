@@ -1,5 +1,7 @@
 package logistics.userinterface.console;
 
+import java.util.Scanner;
+
 import logistics.database.Database;
 import logistics.domain.City;
 import logistics.domain.Truck;
@@ -48,11 +50,11 @@ public class Menu {
                 break;
 
             case 2:
-                // consultarTrecho()
+                getRoute();
                 break;
 
             case 3:
-                // consultarRota()
+                getDelivery();
                 break;
 
             case 4:
@@ -94,7 +96,80 @@ public class Menu {
         
         showMenu();
     }
+ 
+    public void getRoute() {
+        // Variável input recebe o valor inserido pelo terminal
+        Console.print("\n > Digite o nome da cidade de origem: ");
+        String origin = Console.read();
+        
+        Console.print("\n > Digite o nome da cidade de destino: ");
+        String destination = Console.read();
+        
+        int originNode = City.getCity(Database.get().cities, origin).node;
+        int destinationNode = City.getCity(Database.get().cities, destination).node;
+
+        int distance = Route.getRoute(Database.get().routes, originNode, destinationNode).distance;
+
+        Console.info("A distância entre " + origin + " e " + destination + " é de " + distance + "km.");
+        
+        // Pausa de 2 segundos;
+        Console.wait(2000);
+        
+        showMenu();
+    }   
+ 
+    public void getDelivery() {
+        // Variável input recebe o valor inserido pelo terminal
+        Console.print("\n > Digite o nome de duas ou mais cidades separadas por virgula: ");
+        String line = Console.read();
+
+        // O separador dos valores no arquivo utilizado é ","
+        Scanner cities = new Scanner(line.trim()).useDelimiter(",");
+        
+        String originName = "";
+        String destinationName = "";
+        if (cities.hasNext()) originName = cities.next();
+        if (cities.hasNext()) destinationName = cities.next();
+        
+        City firstCity = City.getCity(Database.get().cities, originName);
+        City secondCity = City.getCity(Database.get().cities, destinationName);
+        Route firstRoute = Route.getRoute(Database.get().routes, firstCity.node, secondCity.node);
+
+        int distance = firstRoute.distance;
+        int totalDistance = distance;
+
+        Console.info("A distância entre " + originName + " e " + destinationName + " é de " + distance + "km.");
+
+        String origin = originName;
+        String destination = destinationName;
+        
+        while (cities.hasNext()) {  
+            origin = destination;       
+            destination = cities.next();
+
+            City cityA = City.getCity(Database.get().cities, origin);
+            City cityB = City.getCity(Database.get().cities, destination);
+            Route nRoute = Route.getRoute(Database.get().routes, cityA.node, cityB.node);
+
+            int nDistance = nRoute.distance;
+
+            Console.info("A distância entre " + origin + " e " + destination + " é de " + nDistance + "km.");
+
+            totalDistance += nDistance;
+        }
+        //calcular a distancia (total) e o custo
+
+        Console.info("A distância total é " + totalDistance + "km.");
+        Console.info("O custo total é R$" + totalDistance*Gas.price*Truck.fuelConsumptionRatio + ".");
+        
+        // Pausa de 2 segundos;
+        Console.wait(2000);
+        
+        showMenu();
+    }
+
     
+
     public void showCities() {                                      Console.debug(" > showCities()");
         Console.log("--------------------------");
         Console.log("LISTA DE CIDADES");

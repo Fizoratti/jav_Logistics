@@ -26,6 +26,16 @@ public class Route {
         }
     }
 
+    public static Route getRoute(ArrayList<Route> _routes, int _originNode, int _destinationNode) {
+        Route res = new Route(new City("",0),new City("",0),0);
+        for(Route route: _routes) {
+            if (route.origin.node == _originNode 
+                && route.destination.node == _destinationNode) {
+                res = route;
+            }
+        }
+        return res;
+    }
 
 
     public String toString() {

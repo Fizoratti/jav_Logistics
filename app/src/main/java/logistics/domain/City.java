@@ -24,6 +24,14 @@ public class City {
         }
     }
 
+    public static City getCity(ArrayList<City> _cities, String _name) {
+        City res = new City("",0);
+        for(City city: _cities) {
+            if (city.name == _name) res = city;
+        }
+        return res;
+    }
+
     public static City getCity(ArrayList<City> _cities, int _node) {
         City res = new City("",0);
         for(City city: _cities) {
