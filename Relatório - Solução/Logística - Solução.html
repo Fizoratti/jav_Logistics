@@ -1,0 +1,650 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Logística - Solução</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="27c8bc41-6757-45ed-8395-b888993e4a02" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🚚</span></div><h1 class="page-title">Logística - Solução</h1></header><div class="page-body"><figure class="callout" style="white-space:pre-wrap;display:flex" id="8b86e0d3-5925-4798-af3a-dcc1d9c56e80"><div style="font-size:1.5em"><span class="icon">👉</span></div><div style="width:100%">Programa IT Academy – Processo Seletivo – Turma 12</div></figure><h1 id="70b5cb52-ba9e-452e-a303-0943442c0f62" class="">Decisões de Projeto</h1><hr id="3274e912-feca-47bb-9270-874541094f2d"/><p id="83a8ac68-72ea-4d8a-aa09-ba3e39d22025" class="">O desenvolvimento do projeto será feito na linguagem java porque o prazo de entrega é curto. </p><p id="fc50c144-41e2-4720-8f7b-7266e1feffd0" class="">O <a href="https://gradle.org/">Gradle</a> será usado para automatizar a compilação, teste e execução da aplicação.</p><p id="40d87a41-acee-4c4a-ab8a-0721163527ef" class="">A implementação do código será feita em inglês, mas a interface com usuário no console será em português.</p><p id="4fd7b0da-9ddb-4445-9868-7021fb998c44" class="">Serão incluídos vários <code>Console.log()</code> na implementação para que durante a execução do código no terminal seja informando o que está sendo executado no programa em tempo real.</p><p id="6257f534-ef69-40cf-a1fd-71db6f79801a" class="">Será possível desativar essas mensagens atribuindo <strong>true</strong> para o valor da variável <code>production</code> na classe <code>App.java</code>.</p><p id="3890fe4a-a0d8-4992-9a30-66f20c6919bc" class="">O código terá comentários em português na medida do possível.</p><p id="df4d8c95-23ea-4dc9-b141-a99da778fb30" class="">Os dados do arquivo serão carregados em memória numa classe <em>singleton</em>.</p><p id="02bfba5b-589d-4cb7-83f7-3010b1129402" class="">As únicas variáveis que influenciam no custo de uma viagem são o preço da gasolina (reais) e a eficiência do veículo (litros de gasolina por km).</p><h1 id="cc0c7bf2-8c6e-447e-abee-d260f78e2f23" class="">Data Model</h1><hr id="84bf5016-a436-4b30-9486-4f1f3dffb08b"/><h2 id="79ebc553-90c3-4660-835f-0205fde22a40" class="">Graphs</h2><p id="0ffc38b7-20c2-49e4-8dc4-a0add7c046d0" class="">Um grafo consiste em um conjunto finito de vértices ou nós e um conjunto de arestas conectando esses vértices. Dois vértices são considerados adjacentes se estiverem conectados um ao outro pela mesma aresta.</p><figure id="b6d00e51-5d43-494e-ae89-ec59fca80f7b" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled.png"><img style="width:700px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled.png"/></a></figure><h3 id="ec02d478-23ae-4e8c-a29a-7c6c69cf28aa" class="">Análise</h3><p id="99217c3d-5bb8-4eb0-bec4-cf63dc28ab0c" class=""><em><strong>Order: </strong></em><em>The number of vertices in the graph</em><div class="indented"><p id="f9d95937-2c92-46b2-b3cc-3972ed0da6cc" class="">24 cidades</p></div></p><p id="2fd5c04b-3636-4ff6-9f30-272caa987a6d" class=""><em><strong>Size: </strong></em><em>The number of edges in the graph</em><div class="indented"><p id="c52d3ef6-ffc6-4fda-86eb-2a49a0b6275d" class="">24 * 23 = 552 rotas</p><p id="5fc4ddad-7bb2-445e-af11-a5a1baa8614d" class="">
+</p></div></p><p id="486f363f-bee5-4dba-9b7d-f7bc79707ddb" class=""><em><strong>Weighted graph:</strong></em><em> Edges of the graph has weights</em><div class="indented"><p id="8d6ea949-2551-43ea-a92f-0aa50dd58714" class=""><em>weight</em>: distância em Km</p></div></p><p id="c47653e3-2457-4540-80df-05aeed73d06d" class=""><em><strong>Directed graph:</strong></em><em> A graph where all the edges have a direction indicating what is the start vertex and what is the end vertex</em><div class="indented"><p id="762b2bba-341d-4bcd-ad87-1e77a5519841" class="">Como a distância entre as cidades pode variar dependendo do sentido do trajeto, usaremos o modelo origem-destino.</p></div></p><p id="de621b86-2845-4c5d-a67f-bf0f6f7c2077" class="">
+</p><h2 id="03bdf534-f826-44f3-b12a-d0acf298053a" class="">Domain Keywords</h2><ul id="ad668a3f-f567-4680-a60d-62815989a5c0" class="bulleted-list"><li>Cidade <code>City</code></li></ul><ul id="aeb0abb8-a5aa-494c-ab9c-2570177da6a4" class="bulleted-list"><li>Distância <code>Distance</code>
+Origem <code>origin</code>, Destino <code>destination</code></li></ul><ul id="762faee1-4ffb-4777-849c-1a3e5b0eab50" class="bulleted-list"><li>Rota <code>Route</code> 
+Cidade A → Cidade B,
+Distância X,</li></ul><ul id="18d1747a-652f-4185-a47a-220e757201a2" class="bulleted-list"><li>Entrega <code>Delivery</code> 
+Rota 1: CidadeA→CidadeB, DistânciaX;
+Rota 2:CidadeB→CidadeC, DistânciaY;<ul id="3c1504ca-856c-42de-994d-17b8cb53de0c" class="bulleted-list"><li><em>ETA (Estimated Time of Arrival)</em></li></ul><ul id="83f952a5-db02-4c2c-8eb6-e609f3668e5b" class="bulleted-list"><li>Custo <code>Cost</code></li></ul></li></ul><p id="b0352fa8-2dba-4891-931a-3c0af6d9d5bb" class="">
+</p><ul id="5be329bd-7249-4fde-ac22-2fe8d970f271" class="bulleted-list"><li>Caminhão <code>Truck</code></li></ul><ul id="9f188dc9-7d3c-4852-b02d-4374cfeec948" class="bulleted-list"><li>Consumo <code>fuelConsumptionRatio</code></li></ul><p id="09e4ac90-ee1b-4809-af65-0a8a7df39b6a" class="">
+</p><ul id="60ba56f4-f1c5-45a0-b7dc-efa2ac3076c2" class="bulleted-list"><li>Carga</li></ul><ul id="47a4537f-ca53-4373-ba83-981e65e283b1" class="bulleted-list"><li>Rodovia</li></ul><ul id="ba16f7a8-fa2b-46d2-a455-f3bf22490dfc" class="bulleted-list"><li>Transportadora</li></ul><ul id="2b6e0e11-7054-4229-a9bf-23f9f8f00a4a" class="bulleted-list"><li>Direção</li></ul><h1 id="5e820c95-ea44-4963-adb8-b44f99137fe0" class="">Features</h1><p id="7ce61fbd-6fbd-4fb3-9e36-932aed1e8771" class=""><strong>Presentation</strong></p><ul id="2b23611c-f957-427a-b830-375ba740a6e7" class="bulleted-list"><li>Menu no Terminal</li></ul><ul id="e2e27326-b9f5-4804-a978-23cb6d97060b" class="bulleted-list"><li>Sanitização do input</li></ul><p id="e2b392f8-8d6a-4f9e-ae43-d25b999ca6ba" class=""><strong>Domain</strong></p><ul id="976acda6-2936-434e-8c31-4de2a84f90ff" class="bulleted-list"><li>Regras de negócio</li></ul><p id="fe8733e8-0a14-4b5a-aecb-a3c8a2032547" class=""><strong>Persistence</strong></p><ul id="048be12a-919d-4be3-9caa-cb7fd85d74d3" class="bulleted-list"><li>Ler arquivo Distancias.csv</li></ul><h1 id="7c6aa2fd-bd10-4fe4-93a5-931762ced0ca" class="">User Stories</h1><ul id="16958032-5fcb-4ba1-b461-0f819e91b490" class="bulleted-list"><li>Como usuário eu preciso informar o custo (R$) pela distância (km) para fundamentar os cálculos do software</li></ul><pre id="bcc2bfcc-daba-42e4-aa93-d22d8d55744d" class="code"><code>Informe o custo por KM:
+&gt; 4,10</code></pre><p id="68710c65-ecf5-4a1d-aae5-8aa7eaad7df4" class="">
+</p><ul id="8996416f-40f4-42d9-8e0c-7d189a2def57" class="bulleted-list"><li>Como usuário eu quero informar o nome de duas cidades para ser informado da distância entre elas e o custo total estimado da viagem</li></ul><pre id="f713bca4-3ec1-43b7-9555-b122950dba9d" class="code"><code>Digite o nome da cidade de origem:
+&gt; Aracaju
+Digite o nome da cidade de destino:
+&gt; Belem</code></pre><p id="bf72c199-7502-4c53-9d61-bc906e8de96e" class="">
+</p><ul id="0a66bcd8-8e30-4914-aba1-1283cb444943" class="bulleted-list"><li>Como usuário eu quero informar o nome de três ou mais cidades para ser informado da distância entre cada trecho; o custo total estimado da viagem; o consumo total estimado de gasolina (em litros); e o tempo estimado de chegada (em dias)</li></ul><pre id="5d289096-cffc-4b67-bf60-5083d20481b6" class="code"><code>Digite o nome de duas ou mais cidades separadas por virgula:
+&gt; porto alegre, florianopolis, Curitiba</code></pre><p id="ad4c6a46-78fa-455c-be8f-37449a7a2bea" class="">
+</p><ul id="09ded9e9-9db3-4973-8a81-f4f01b7ecff1" class="bulleted-list"><li>Como usuário eu gostaria de ter uma opção para finalizar o programa</li></ul><p id="4f367807-7202-43cd-a31a-84dfc0f1ca4d" class="">
+</p><h1 id="956cf349-2365-4826-849b-1bb7e1e91bc8" class="">Execução da aplicação</h1><hr id="054ee17c-7493-46e9-9f55-67f30aca789b"/><p id="331c14b8-5fcb-4715-bd42-6338412d1822" class="">
+</p><p id="716e003d-d7cf-4c67-953e-b220292e06e8" class="">Menu inicial</p><figure id="115ad9a0-8402-41bb-a0c8-3b584b9f2c54" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%201.png"><img style="width:1165px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%201.png"/></a></figure><p id="db9d6ab4-0ac3-4db4-986a-924dc02ec3fa" class="">
+</p><p id="6dc414e9-3e90-4f03-8568-1c1e701cf8b5" class="">Configurar custo</p><figure id="5213d259-3818-474c-8e93-174e2d208fcf" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%202.png"><img style="width:1165px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%202.png"/></a></figure><p id="1b66ca67-0eff-4ea9-96cf-cc201dcca33e" class="">
+</p><p id="62c5f5e1-0648-4fb7-9aa7-a92fd45881b9" class="">Consultar trecho</p><figure id="b1d17462-576d-4ce2-9d09-9b1dba87c96a" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%203.png"><img style="width:1161px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%203.png"/></a></figure><p id="b8e41afa-2e41-4add-af58-aa6e52884455" class="">
+</p><p id="71befc08-4227-4bed-b2c2-202980ffd49a" class="">Consultar rota</p><figure id="c40e7993-b4df-466c-92af-b745a274ee47" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%204.png"><img style="width:1171px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%204.png"/></a></figure><p id="ce2c63a3-ae8b-475c-b5da-168ce1e0e91d" class="">
+</p><p id="456b0094-a951-4a63-bb99-c074993ec7d0" class="">Terminar o programa</p><figure id="665d7ee0-6121-45fe-8832-b318f2299e55" class="image"><a href="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%205.png"><img style="width:1170px" src="Logi%CC%81stica%20-%20Soluc%CC%A7a%CC%83o%20b6d00e515d43494eae89ec59fca80f7b/Untitled%205.png"/></a></figure></div></article></body></html>
